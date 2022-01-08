@@ -1,5 +1,6 @@
 CC=gcc
-CFLAGS=`sdl2-config --libs --cflags` -lGL
+CFLAGS=`sdl2-config --libs --cflags` -lGL -Iinclude
+RENDERER=sdl2_gl
 all: bin/unnamedgame
 
 prepare:
@@ -8,4 +9,4 @@ prepare:
 	fi
 
 bin/unnamedgame: prepare
-	$(CC) src/main.cpp $(CFLAGS) -o bin/unnamedgame
+	$(CC) $(RENDERER)/renderer.cpp src/main.cpp $(CFLAGS) -o bin/unnamedgame
