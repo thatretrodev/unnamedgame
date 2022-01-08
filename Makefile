@@ -1,4 +1,5 @@
 CC=gcc
+CFLAGS=`sdl2-config --libs --cflags`
 all: bin/unnamedgame
 
 prepare:
@@ -7,4 +8,4 @@ prepare:
 	fi
 
 bin/unnamedgame: prepare
-	$(CC) src/main.cpp -o bin/unnamedgame
+	$(CC) src/main.cpp $(CFLAGS) -o bin/unnamedgame
