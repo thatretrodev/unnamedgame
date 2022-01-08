@@ -1,11 +1,13 @@
 #include <stdio.h>
-#include <GL/gl.h>
+#include "model.hpp"
 #include "renderer.hpp"
 
 int main() {
 	int windowWidth = 640;
 	int windowHeight = 480;
 	bool isRunning = true;
+
+	Model model("assets/test.obj");
 
 	// Initialize the Renderer
 
@@ -17,7 +19,7 @@ int main() {
 
 		Renderer::PreRender(&isRunning);
 
-		Renderer::Render();
+		Renderer::RenderModel(model, 0.2);
 
 		Renderer::PostRender();
 	}

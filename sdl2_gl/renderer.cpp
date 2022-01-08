@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
+#include <GL/gl.h>
 #include "renderer.hpp"
 
 SDL_Window* window;
@@ -45,28 +46,25 @@ void Renderer::PreRender(bool* isRunning) {
 					break;
 		}
 	}
-}
 
-void Renderer::Render() {
 	glViewport(0, 0, windowWidth, windowHeight);
 
 	glClearColor(0.2f, 0.2f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
 
+void Renderer::RenderModel(Model model, float size) {
 	glBegin(GL_TRIANGLES);
 
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex2f(0.5f, 0.0f);
+	for (int i = 0; i < model.vertices.size(); i++) {                         
+		ModelVertex vertex = model.vertices[i];
 
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex2f(-0.5f, -0.5f);
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex2f(-0.5f, 0.5f);
+		glVertex3f(vertex.x * size, vertex.y * size, vertex.z * size);
+	}
 
 	glEnd();
 
-	glFlush();
+	glRotatef(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void Renderer::PostRender() {
