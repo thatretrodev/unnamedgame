@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=`sdl2-config --libs --cflags`
+CFLAGS=`sdl2-config --libs --cflags` -lGL
 all: bin/unnamedgame
 
 prepare:

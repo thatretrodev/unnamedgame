@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
+#include <GL/gl.h>
 
 int main() {
 	int windowWidth = 640;
@@ -11,11 +13,17 @@ int main() {
 		printf("ERROR: Unable to initialize SDL2: %s\n", SDL_GetError());
 	}
 
-	SDL_Window* window = SDL_CreateWindow("Unnamed Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_RESIZABLE);
+	SDL_Window* window = SDL_CreateWindow("Unnamed Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+	
+	// TODO: Figure out what this does
+	SDL_GLContext GLContext = SDL_GL_CreateContext(window);
 
 	// Game loop
 
 	while (isRunning) {
+		
+		// Handle SDL events
+
 		SDL_Event event;
 
 		while (SDL_PollEvent(&event)) {
@@ -29,6 +37,15 @@ int main() {
 				default:
 					break;
 			}
+
+			// OpenGL rendering
+
+			glViewport(0, 0, windowWidth, windowHeight);
+
+			glClearColor(0.2f, 0.2f, 0.2f, 0.f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			SDL_GL_SwapWindow(window);
 		}
 	}
 
