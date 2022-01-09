@@ -10,10 +10,10 @@ void SceneManager::SwitchScene(int SceneID) {
 
 	switch (this->sceneType) {
 		case 1:
-			this->gameScene.Init();
+			this->mainMenuScene.Init(this->gameRunning);
 			break;
 		case 2:
-			this->mainMenuScene.Init(this->gameRunning);
+			this->gameScene.Init();
 			break;
 		
 		default:
@@ -31,14 +31,11 @@ void SceneManager::DrawUnknownSceneScreen() {
 
 void SceneManager::Render() {
 	switch (this->sceneType) {
-		case 0:
-			this->DrawUnknownSceneScreen();
-			break;
 		case 1:
-			this->gameScene.Render();
+			this->mainMenuScene.Render();
 			break;
 		case 2:
-			this->mainMenuScene.Render();
+			this->gameScene.Render();
 			break;
 		
 		default:

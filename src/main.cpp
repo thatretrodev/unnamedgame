@@ -6,7 +6,7 @@
 
 int main() {
 	bool gameRunning = true;
-	int sceneID = 2;
+	int sceneID = 1;
 
 	SceneManager sceneManager(&gameRunning);
 

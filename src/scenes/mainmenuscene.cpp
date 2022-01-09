@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include "raylib.h"
-#include "rlImGui.h"
-#include "imgui.h"
 #include "mainmenuscene.hpp"
+#include "../gui/debugmenu.hpp"
 
 void MainMenuScene::Init(bool* gameRunning) {
 	this->buttonTexture = LoadTexture("assets/button.png");
@@ -88,14 +87,6 @@ void MainMenuScene::Render() {
 	DrawText(text, (GetScreenWidth() / 2) - (textWidth / 2), (GetScreenHeight() / 2) - 50, 50, WHITE);
 	
 	if (this->debugMenuOpen) {
-		rlImGuiBegin();
-
-		ImGui::Begin("Debug Menu");
-
-		ImGui::Text("Hello, world %d", 123);
-
-		ImGui::End();
-
-		rlImGuiEnd();
+		DebugMenu::Render();
 	}
 }
