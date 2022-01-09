@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "raylib.h"
 #include "rlImGui.h"
 #include "imgui.h"
@@ -30,7 +31,12 @@ void MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 	//DrawRectangleRec(buttonAABB, BLUE);
 
 	if (CheckCollisionPointRec(GetMousePosition(), buttonAABB)) {
-		DrawTexture(this->buttonTexture, (GetScreenWidth() / 2) - (this->buttonTexture.width / 2), (GetScreenHeight() / 2) + (50 * ButtonID), LIGHTGRAY);
+		if (IsMouseButtonDown(0)) {
+			DrawTexture(this->buttonTexture, (GetScreenWidth() / 2) - (this->buttonTexture.width / 2), (GetScreenHeight() / 2) + (50 * ButtonID), GRAY);
+		}
+		else {
+			DrawTexture(this->buttonTexture, (GetScreenWidth() / 2) - (this->buttonTexture.width / 2), (GetScreenHeight() / 2) + (50 * ButtonID), LIGHTGRAY);
+		}
 	}
 	else {
 		DrawTexture(this->buttonTexture, (GetScreenWidth() / 2) - (this->buttonTexture.width / 2), (GetScreenHeight() / 2) + (50 * ButtonID), WHITE);
@@ -38,6 +44,28 @@ void MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 
 	//DrawTextEx(this->buttonFont, name, (Vector2){ (GetScreenWidth() / 2) - (textSize.x / 2), (GetScreenHeight() / 2) + ((50 * ButtonID) + 5) }, 30.0f, 2, BLACK);
 	DrawText(name, (GetScreenWidth() / 2) - (textWidth / 2), (GetScreenHeight() / 2) + (50 * ButtonID) + 10, 20, BLACK);
+
+	if (CheckCollisionPointRec(GetMousePosition(), buttonAABB) && IsMouseButtonReleased(0)) {
+		/*printf("IsMouseButtonDown(0): %s\n", IsMouseButtonDown(0) ? "true" : "false");
+		printf("IsMouseButtonReleased(0): %s\n", IsMouseButtonReleased(0) ? "true" : "false");*/
+
+		switch (ButtonID) {
+			case 1:
+				printf("Play button pressed!\n");
+				break;
+			
+			case 2:
+				printf("Settings button pressed!\n");
+				break;
+
+			case 3:
+				printf("Quit button pressed!\n");
+				break;
+			
+			default:
+				break;
+		}
+	}
 }
 
 void MainMenuScene::Render() {
