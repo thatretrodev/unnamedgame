@@ -1,20 +1,20 @@
 #include <stdio.h>
-#include "mainmenuscene.hpp"
+#include "settingsscene.hpp"
 #include "../gui/debugmenu.hpp"
 
-void MainMenuScene::Init(bool* gameRunning) {
+void SettingsScene::Init(bool* gameRunning) {
 	this->buttonTexture = LoadTexture("assets/button.png");
 	this->debugMenuOpen = false;
 	this->gameRunning = gameRunning;
 	//this->buttonFont = LoadFontEx("assets/roboto/Roboto-Bold.ttf", 32, 0, 250);
 }
 
-void MainMenuScene::Unload() {
+void SettingsScene::Unload() {
 	UnloadTexture(this->buttonTexture);
 	//UnloadFont(this->buttonFont);
 }
 
-bool MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
+bool SettingsScene::DrawButton(bool enabled, char* name, int ButtonID) {
 	int textWidth = MeasureText(name, 20);
 	//Vector2 textSize = MeasureTextEx(this->buttonFont, name, 30, 2);
 
@@ -52,31 +52,23 @@ bool MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 	return false;
 }
 
-int MainMenuScene::Render() {
+int SettingsScene::Render() {
 	if (IsKeyReleased(KEY_TAB)) {
 		this->debugMenuOpen = !this->debugMenuOpen;
 	}
 
 	ClearBackground(LIGHTGRAY);
 
-	bool playButtonPressed = this->DrawButton(true, "Play", 1);
-	bool settingsButtonPressed = this->DrawButton(false, "Settings", 2);
-	bool quitButtonPressed = this->DrawButton(true, "Quit", 3);
+	bool backButtonPressed = this->DrawButton(true, "Back", 1);
 
-	if (playButtonPressed) {
-		return 2;
-	}
-	else if (settingsButtonPressed) {
-		return 3;
-	}
-	else if (quitButtonPressed) {
-		*this->gameRunning = false;
+	if (backButtonPressed) {
+		return 1;
 	}
 
-	char* text = "Unnamed Game";
-	int textWidth = MeasureText(text, 50);
+	char* text = "Settings";
+	int textWidth = MeasureText(text, 40);
 
-	DrawText(text, (GetScreenWidth() / 2) - (textWidth / 2), (GetScreenHeight() / 2) - 50, 50, WHITE);
+	DrawText(text, (GetScreenWidth() / 2) - (textWidth / 2), (GetScreenHeight() / 2) - 100, 40, WHITE);
 	
 	if (this->debugMenuOpen) {
 		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), (Color){ 0, 0, 0, 128 });

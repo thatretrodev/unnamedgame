@@ -15,7 +15,8 @@ void SceneManager::SwitchScene(int SceneID) {
 		case 2:
 			this->gameScene.Init();
 			break;
-		
+		case 3:
+			this->settingsScene.Init(this->gameRunning);
 		default:
 			break;
 	}
@@ -46,6 +47,19 @@ void SceneManager::Render() {
 			break;
 		case 2:
 			this->gameScene.Render();
+			break;
+		case 3:
+			{
+				int SceneID = this->settingsScene.Render();
+				if (SceneID != 0) {
+					printf("Considering scene: %d\n", SceneID);
+				}
+
+				if (SceneID > 0 && 4 > SceneID) {
+					printf("Switching to Scene: %d\n", SceneID);
+					this->SwitchScene(SceneID);
+				}
+			}
 			break;
 		
 		default:

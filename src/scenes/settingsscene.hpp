@@ -1,6 +1,6 @@
 #include "raylib.h"
 
-class MainMenuScene {
+class SettingsScene {
 	public:
 		Texture2D buttonTexture;
 		Font buttonFont;
