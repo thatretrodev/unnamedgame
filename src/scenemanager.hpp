@@ -12,6 +12,7 @@ class SceneManager {
 	public:
 		SceneManager(bool* gameRunning);
 		void SwitchScene(int SceneID);
+		void DrawUnknownSceneScreen();
 		void Render();
 		void Unload();
 };

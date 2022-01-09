@@ -21,10 +21,18 @@ void SceneManager::SwitchScene(int SceneID) {
 	}
 }
 
+void SceneManager::DrawUnknownSceneScreen() {
+	ClearBackground(DARKBLUE);
+	char* text = "Somehow, you have reached a scene that does not exist.\nWas it even worth your time?";
+	int textWidth = MeasureText(text, 20);
+
+	DrawText(text, (GetScreenWidth() / 2) - (textWidth / 2), GetScreenHeight() / 2, 20, WHITE);
+}
+
 void SceneManager::Render() {
 	switch (this->sceneType) {
 		case 0:
-			ClearBackground(DARKBLUE);
+			this->DrawUnknownSceneScreen();
 			break;
 		case 1:
 			this->gameScene.Render();
@@ -34,7 +42,7 @@ void SceneManager::Render() {
 			break;
 		
 		default:
-			ClearBackground(DARKBLUE);
+			this->DrawUnknownSceneScreen();
 			break;
 	}
 }
