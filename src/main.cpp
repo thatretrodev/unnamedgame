@@ -5,12 +5,12 @@
 #include "scenemanager.hpp"
 
 int main() {
-	int sceneID = 1;
+	int sceneID = 2;
 	SceneManager sceneManager;
 
-	sceneManager.SwitchScene(sceneID);
+	InitWindow(1280, 720, "Unnamed Game");
 
-	InitWindow(640, 480, "Unnamed Game");
+	sceneManager.SwitchScene(sceneID);
 
 	SetWindowState(FLAG_WINDOW_RESIZABLE);
 	SetWindowMinSize(640, 480);
@@ -35,6 +35,7 @@ int main() {
 	}
 
 	rlImGuiShutdown();
+	sceneManager.Unload();
 	CloseWindow();
 
 	return 0;
