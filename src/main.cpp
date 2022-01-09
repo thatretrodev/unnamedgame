@@ -15,7 +15,7 @@ int main() {
 	sceneManager.SwitchScene(sceneID);
 
 	SetWindowState(FLAG_WINDOW_RESIZABLE);
-	SetWindowMinSize(640, 480);
+	SetWindowMinSize(800, 600);
 
 	rlImGuiSetup(true);
 
