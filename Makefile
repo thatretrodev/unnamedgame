@@ -8,7 +8,7 @@ prepare:
 	fi
 
 bin/unnamedgame: prepare
-	$(CC) deps/imgui/*.cpp deps/rlImGui/*.cpp src/*.cpp src/scenes/*.cpp $(CFLAGS) -o bin/unnamedgame
+	$(CC) deps/imgui/*.cpp deps/rlImGui/*.cpp src/*.cpp src/scenes/*.cpp src/gui/*.cpp $(CFLAGS) -o bin/unnamedgame
 
 test:
 	LD_LIBRARY_PATH=`pwd`/raylib-4.0.0_linux_amd64/lib:$LD_LIBRARY_PATH ./bin/unnamedgame
