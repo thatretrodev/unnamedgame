@@ -1,6 +1,10 @@
 #include "raylib.h"
 #include "scenemanager.hpp"
 
+SceneManager::SceneManager(bool* gameRunning) {
+	this->gameRunning = gameRunning;
+}
+
 void SceneManager::SwitchScene(int SceneID) {
 	this->sceneType = SceneID;
 
@@ -9,7 +13,7 @@ void SceneManager::SwitchScene(int SceneID) {
 			this->gameScene.Init();
 			break;
 		case 2:
-			this->mainMenuScene.Init();
+			this->mainMenuScene.Init(this->gameRunning);
 			break;
 		
 		default:

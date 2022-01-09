@@ -4,9 +4,10 @@
 #include "imgui.h"
 #include "mainmenuscene.hpp"
 
-void MainMenuScene::Init() {
+void MainMenuScene::Init(bool* gameRunning) {
 	this->buttonTexture = LoadTexture("assets/button.png");
 	this->debugMenuOpen = false;
+	this->gameRunning = gameRunning;
 	//this->buttonFont = LoadFontEx("assets/roboto/Roboto-Bold.ttf", 32, 0, 250);
 }
 
@@ -61,6 +62,7 @@ void MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 
 			case 3:
 				printf("Quit button pressed!\n");
+				*this->gameRunning = false;
 				break;
 			
 			default:

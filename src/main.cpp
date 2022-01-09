@@ -5,8 +5,10 @@
 #include "scenemanager.hpp"
 
 int main() {
+	bool gameRunning = true;
 	int sceneID = 2;
-	SceneManager sceneManager;
+
+	SceneManager sceneManager(&gameRunning);
 
 	InitWindow(1280, 720, "Unnamed Game");
 
@@ -17,7 +19,9 @@ int main() {
 
 	rlImGuiSetup(true);
 
-	while (!WindowShouldClose()) {
+	while (gameRunning) {
+		gameRunning = !WindowShouldClose();
+
 		if (IsKeyReleased(KEY_LEFT)) {
 			sceneID--;
 			sceneManager.SwitchScene(sceneID);
