@@ -80,6 +80,7 @@ int MainMenuScene::Render() {
 	DrawText(text, (GetScreenWidth() / 2) - (textWidth / 2), (GetScreenHeight() / 2) - 50, 50, WHITE);
 	
 	if (this->debugMenuOpen) {
+		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), (Color){ 0, 0, 0, 128 });
 		DebugMenu::Render();
 	}
 }
