@@ -6,6 +6,7 @@
 
 void MainMenuScene::Init() {
 	this->buttonTexture = LoadTexture("assets/button.png");
+	this->debugMenuOpen = false;
 	//this->buttonFont = LoadFontEx("assets/roboto/Roboto-Bold.ttf", 32, 0, 250);
 }
 
@@ -30,7 +31,7 @@ void MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 
 	//DrawRectangleRec(buttonAABB, BLUE);
 
-	if (CheckCollisionPointRec(GetMousePosition(), buttonAABB)) {
+	if (CheckCollisionPointRec(GetMousePosition(), buttonAABB) && !this->debugMenuOpen) {
 		if (IsMouseButtonDown(0)) {
 			DrawTexture(this->buttonTexture, (GetScreenWidth() / 2) - (this->buttonTexture.width / 2), (GetScreenHeight() / 2) + (50 * ButtonID), GRAY);
 		}
@@ -45,7 +46,7 @@ void MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 	//DrawTextEx(this->buttonFont, name, (Vector2){ (GetScreenWidth() / 2) - (textSize.x / 2), (GetScreenHeight() / 2) + ((50 * ButtonID) + 5) }, 30.0f, 2, BLACK);
 	DrawText(name, (GetScreenWidth() / 2) - (textWidth / 2), (GetScreenHeight() / 2) + (50 * ButtonID) + 10, 20, BLACK);
 
-	if (CheckCollisionPointRec(GetMousePosition(), buttonAABB) && IsMouseButtonReleased(0)) {
+	if (CheckCollisionPointRec(GetMousePosition(), buttonAABB) && IsMouseButtonReleased(0) && !this->debugMenuOpen) {
 		/*printf("IsMouseButtonDown(0): %s\n", IsMouseButtonDown(0) ? "true" : "false");
 		printf("IsMouseButtonReleased(0): %s\n", IsMouseButtonReleased(0) ? "true" : "false");*/
 
@@ -69,6 +70,10 @@ void MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 }
 
 void MainMenuScene::Render() {
+	if (IsKeyReleased(KEY_TAB)) {
+		this->debugMenuOpen = !this->debugMenuOpen;
+	}
+
 	ClearBackground(LIGHTGRAY);
 
 	this->DrawButton(true, "Play", 1);
@@ -80,14 +85,15 @@ void MainMenuScene::Render() {
 
 	DrawText(text, (GetScreenWidth() / 2) - (textWidth / 2), (GetScreenHeight() / 2) - 50, 50, WHITE);
 	
+	if (this->debugMenuOpen) {
+		rlImGuiBegin();
 
-	rlImGuiBegin();
+		ImGui::Begin("Debug Menu");
 
-	ImGui::Begin("Debug Menu");
+		ImGui::Text("Hello, world %d", 123);
 
-	ImGui::Text("Hello, world %d", 123);
+		ImGui::End();
 
-	ImGui::End();
-
-	rlImGuiEnd();
+		rlImGuiEnd();
+	}
 }
