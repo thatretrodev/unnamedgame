@@ -32,7 +32,13 @@ void SceneManager::DrawUnknownSceneScreen() {
 void SceneManager::Render() {
 	switch (this->sceneType) {
 		case 1:
-			this->mainMenuScene.Render();
+			{
+				int SceneID = this->mainMenuScene.Render();
+				if (SceneID > 0) {
+					printf("Switching to Scene: %d\n", SceneID);
+					this->SwitchScene(SceneID);
+				}
+			}
 			break;
 		case 2:
 			this->gameScene.Render();

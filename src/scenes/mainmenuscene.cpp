@@ -15,7 +15,7 @@ void MainMenuScene::Unload() {
 	//UnloadFont(this->buttonFont);
 }
 
-void MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
+bool MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 	int textWidth = MeasureText(name, 20);
 	//Vector2 textSize = MeasureTextEx(this->buttonFont, name, 30, 2);
 
@@ -47,39 +47,32 @@ void MainMenuScene::DrawButton(bool enabled, char* name, int ButtonID) {
 	DrawText(name, (GetScreenWidth() / 2) - (textWidth / 2), (GetScreenHeight() / 2) + (50 * ButtonID) + 10, 20, BLACK);
 
 	if (CheckCollisionPointRec(GetMousePosition(), buttonAABB) && IsMouseButtonReleased(0) && !this->debugMenuOpen) {
-		/*printf("IsMouseButtonDown(0): %s\n", IsMouseButtonDown(0) ? "true" : "false");
-		printf("IsMouseButtonReleased(0): %s\n", IsMouseButtonReleased(0) ? "true" : "false");*/
-
-		switch (ButtonID) {
-			case 1:
-				printf("Play button pressed!\n");
-				break;
-			
-			case 2:
-				printf("Settings button pressed!\n");
-				break;
-
-			case 3:
-				printf("Quit button pressed!\n");
-				*this->gameRunning = false;
-				break;
-			
-			default:
-				break;
-		}
+		return true;
 	}
+
+	return false;
 }
 
-void MainMenuScene::Render() {
+int MainMenuScene::Render() {
 	if (IsKeyReleased(KEY_TAB)) {
 		this->debugMenuOpen = !this->debugMenuOpen;
 	}
 
 	ClearBackground(LIGHTGRAY);
 
-	this->DrawButton(true, "Play", 1);
-	this->DrawButton(false, "Settings", 2);
-	this->DrawButton(true, "Quit", 3);
+	bool playButtonPressed = this->DrawButton(true, "Play", 1);
+	bool settingsButtonPressed = this->DrawButton(false, "Settings", 2);
+	bool quitButtonPressed = this->DrawButton(true, "Quit", 3);
+
+	if (playButtonPressed) {
+		return 2;
+	}
+	else if (settingsButtonPressed) {
+		return 3;
+	}
+	else if (quitButtonPressed) {
+		*this->gameRunning = false;
+	}
 
 	char* text = "Unnamed Game";
 	int textWidth = MeasureText(text, 50);

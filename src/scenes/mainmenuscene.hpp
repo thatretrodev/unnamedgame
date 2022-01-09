@@ -6,7 +6,7 @@ class MainMenuScene {
 		bool* gameRunning;
 
 		void Init(bool* gameRunning);
-		void DrawButton(bool enabled, char* name, int ButtonID);
-		void Render();
+		bool DrawButton(bool enabled, char* name, int ButtonID);
+		int Render();
 		void Unload();
 };

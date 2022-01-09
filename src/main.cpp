@@ -6,13 +6,12 @@
 
 int main() {
 	bool gameRunning = true;
-	int sceneID = 1;
 
 	SceneManager sceneManager(&gameRunning);
 
 	InitWindow(1280, 720, "Unnamed Game");
 
-	sceneManager.SwitchScene(sceneID);
+	sceneManager.SwitchScene(1);
 
 	SetWindowState(FLAG_WINDOW_RESIZABLE);
 	SetWindowMinSize(800, 600);
@@ -21,15 +20,6 @@ int main() {
 
 	while (gameRunning) {
 		gameRunning = !WindowShouldClose();
-
-		if (IsKeyReleased(KEY_LEFT)) {
-			sceneID--;
-			sceneManager.SwitchScene(sceneID);
-		}
-		else if (IsKeyReleased(KEY_RIGHT)) {
-			sceneID++;
-			sceneManager.SwitchScene(sceneID);
-		}
 
 		BeginDrawing();
 
